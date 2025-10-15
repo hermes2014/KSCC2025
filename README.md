@@ -63,7 +63,7 @@ ps -ef | grep -i ollama
 netstat -tnlp | grep 8081
 ps -ef | grep -i open-webui
 
-# ollama or Open-WebUI
+# ollama or Open-WebUI (or ssh)
 netstat -tnlp | grep -iE "11434|8081"
 ps -ef | grep -iE "ollama|open-webui|ssh"
 
