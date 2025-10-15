@@ -22,10 +22,11 @@
 ```bash
 curl -fsSL https://ollama.com/install.sh | sh
 ollama
-ollama -?
+ollama -help
 ollama ps
 ollama serve
 ```
+(ollama serve 실행 후 해당 터미널은 그대로 유지)
 
 #### ollama에서 구동시킬 gemma 모델 다운로드 및 실행
 ```bash
@@ -43,13 +44,12 @@ open-webui serve --port 8081
 
 #### 외부에서 Open-WebUI 서비스에 접속하기 위한 연결 생성
 ssh -R [remote-port]:[local-host]:[local-port] [user]@[remote-server]  
-ex) ssh -p 443 -R0:localhost:8081 qr@a.pinggy.io  
-a.pinggy.io 서버에 443번 포트로 접속하면,  
-localhost (Colab서버를 지칭)의 8081번 포트로 연결되도록 명령  
+ex) ssh -p 443 -R 0:localhost:8081 qr@a.pinggy.io  
+a.pinggy.io 서버를 통해 localhost의 8081번 포트에 접속할 수 있도록 허용
 (SSH reverse port forwarding 기법)
 
 ```bash
-ssh -o StrictHostKeyChecking=no -p 443 -R0:localhost:8081 qr@a.pinggy.io
+ssh -o StrictHostKeyChecking=no -p 443 -R 0:localhost:8081 qr@a.pinggy.io
 ```
 
 #### 서비스가 실행중인지 확인하는 방법
@@ -63,6 +63,9 @@ ps -ef | grep -i ollama
 netstat -tnlp | grep 8081
 ps -ef | grep -i open-webui
 
+# ollama or Open-WebUI
+netstat -tnlp | grep -iE "11434|8081"
+ps -ef | grep -iE "ollama|open-webui|ssh"
 
 # kill a specific process with process id
 kill [PID]
